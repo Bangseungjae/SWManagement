@@ -3,10 +3,9 @@ package com.example.swmanagement.security.service;
 import com.example.swmanagement.domain.User;
 import com.example.swmanagement.domain.repository.UserRepository;
 import com.example.swmanagement.security.TokenProvider;
-import com.example.swmanagement.security.dto.ResponseLogin;
+import com.example.swmanagement.dto.ResponseLogin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -30,7 +29,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    ResponseLogin authenticate(String email, String password) {
+    public ResponseLogin authenticate(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다." + email));
         matchPassword(password, user);

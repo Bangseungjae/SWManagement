@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 public class Board extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 

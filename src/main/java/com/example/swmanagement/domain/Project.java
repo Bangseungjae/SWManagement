@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 public class Project extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

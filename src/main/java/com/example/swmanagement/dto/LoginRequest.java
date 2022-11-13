@@ -1,15 +1,16 @@
-package com.example.swmanagement.security.dto;
+package com.example.swmanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ResponseLogin {
-    private String accessToken;
+@Builder
+@NoArgsConstructor
+public class LoginRequest {
+    private String email;
+    private String password;
     private String username;
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 public class Task {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
