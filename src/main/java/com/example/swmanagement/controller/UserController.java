@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -18,13 +20,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity signup(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity signup(@Valid @RequestBody LoginRequest loginRequest) {
         userService.signUp(loginRequest);
         return ResponseEntity.ok().body(null);
     }
 
     @GetMapping("/login")
-    public ResponseEntity<ResponseLogin> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<ResponseLogin> login(@Valid @RequestBody LoginRequest loginRequest) {
         ResponseLogin authenticate = authService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         return ResponseEntity.ok().body(authenticate);
     }
