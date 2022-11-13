@@ -1,0 +1,5 @@
+jwt:
+  header: Authorization
+  secret: Tm92YUhvbWVQYWdlc2FkZmFzZGZhc2RmYXNkZnNhZGY=
+  # NovaHomePagesadfasdfasdfasdfsadf
+  access-token-validity-in-seconds: 6000 # 10 min
