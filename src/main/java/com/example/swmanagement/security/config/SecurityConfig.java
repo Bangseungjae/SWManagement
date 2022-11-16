@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2/**")
                 .antMatchers("/swagger-ui/**")
                 .antMatchers("/swagger-resources/**")
+                .antMatchers("/v2/api-docs/**")
                 .antMatchers("/error");
     }
 
@@ -64,6 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/v2/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/index.html/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
