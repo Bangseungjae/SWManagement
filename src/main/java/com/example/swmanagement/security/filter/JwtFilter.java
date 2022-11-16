@@ -35,7 +35,7 @@ public class JwtFilter extends GenericFilter {
             String token = tokenProvider.createToken(authentication);
             log.info("Security Context에 '{}' 인증 정보를 저장했습니다, uri: {}", authentication.getName(), requestURI);
             httpServletResponse.setHeader(AUTHORIZATION_HEADER, token);
-            httpServletResponse.setHeader("USER", authentication.getAuthorities().toString());
+            httpServletResponse.setHeader("USERNAME", authentication.getName());
         } else {
             log.info("유효한 JWT 토큰이 없습니다, uri: {}", requestURI);
         }
