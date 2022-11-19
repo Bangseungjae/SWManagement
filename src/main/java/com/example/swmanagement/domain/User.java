@@ -31,7 +31,7 @@ public class User extends BaseEntity{
     @Column
     private String password;
 
-    @OneToMany
+    @ManyToMany(mappedBy = "user")
     private List<Project> projects = new ArrayList<>();
 
     @OneToMany
