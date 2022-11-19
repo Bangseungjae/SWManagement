@@ -1,19 +1,19 @@
 package com.example.swmanagement.controller;
 
-import com.example.swmanagement.dto.LoginRequest;
-import com.example.swmanagement.dto.ResponseLogin;
+import com.example.swmanagement.dto.invitation.InvitationDto;
+import com.example.swmanagement.dto.user.LoginRequest;
+import com.example.swmanagement.dto.user.ResponseLogin;
 import com.example.swmanagement.security.service.AuthService;
+import com.example.swmanagement.service.InvitationService;
 import com.example.swmanagement.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +21,7 @@ import javax.validation.Valid;
 public class UserController {
     private final AuthService authService;
     private final UserService userService;
+    private final InvitationService invitationService;
 
     @ApiOperation(value = "회원가입")
 //    @ApiImplicitParams({
@@ -44,5 +45,11 @@ public class UserController {
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         return ResponseEntity.ok().body("healthy1");
+    }
+
+    @GetMapping("/invitations")
+    public ResponseEntity<List<InvitationDto>> findMyInvitations(@RequestParam String email) {
+        List<InvitationDto> myInvitation = invitationService.findMyInvitation(email);
+        return ResponseEntity.ok().body(myInvitation);
     }
 }

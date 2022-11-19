@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-public class User extends BaseEntity{
+public class User extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -32,11 +32,14 @@ public class User extends BaseEntity{
     private String password;
 
     @ManyToMany(mappedBy = "user")
+    @Builder.Default
     private List<Project> projects = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany
     private List<Issue> issues = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany
     private List<Chat> chats = new ArrayList<>();
 

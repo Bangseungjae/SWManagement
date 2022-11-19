@@ -2,6 +2,7 @@ package com.example.swmanagement.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Builder
 public class Invitation {
 
@@ -22,6 +24,6 @@ public class Invitation {
     @OneToOne
     private User user;
 
-    @OneToMany
-    private List<Project> project = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Project project;
 }

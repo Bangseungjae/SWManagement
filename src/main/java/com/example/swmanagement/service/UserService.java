@@ -2,7 +2,7 @@ package com.example.swmanagement.service;
 
 import com.example.swmanagement.domain.User;
 import com.example.swmanagement.domain.repository.UserRepository;
-import com.example.swmanagement.dto.LoginRequest;
+import com.example.swmanagement.dto.user.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

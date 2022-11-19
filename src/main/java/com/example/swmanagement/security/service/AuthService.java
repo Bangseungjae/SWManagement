@@ -3,7 +3,7 @@ package com.example.swmanagement.security.service;
 import com.example.swmanagement.domain.User;
 import com.example.swmanagement.domain.repository.UserRepository;
 import com.example.swmanagement.security.TokenProvider;
-import com.example.swmanagement.dto.ResponseLogin;
+import com.example.swmanagement.dto.user.ResponseLogin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +42,7 @@ public class AuthService {
         String token = tokenProvider.createToken(authenticate);
         return ResponseLogin.builder()
                 .accessToken(token)
-                .username(email)
+                .username(user.getUsername())
                 .build();
     }
 

@@ -1,9 +1,8 @@
 package com.example.swmanagement;
 
-import com.example.swmanagement.domain.User;
 import com.example.swmanagement.domain.repository.UserRepository;
-import com.example.swmanagement.dto.LoginRequest;
-import com.example.swmanagement.dto.ResponseLogin;
+import com.example.swmanagement.dto.user.LoginRequest;
+import com.example.swmanagement.dto.user.ResponseLogin;
 import com.example.swmanagement.security.service.AuthService;
 import com.example.swmanagement.service.UserService;
 import org.junit.jupiter.api.DisplayName;

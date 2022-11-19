@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Chat extends BaseEntity{
+public class Chat extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

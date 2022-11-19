@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Issue extends BaseEntity{
+public class Issue extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

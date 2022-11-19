@@ -17,7 +17,7 @@ public class AccountAdapter extends org.springframework.security.core.userdetail
 
     public AccountAdapter(User user) {
 
-        super(user.getUsername(), user.getPassword(), authorities());
+        super(user.getEmail(), user.getPassword(), authorities());
     }
 
     private static Set<GrantedAuthority> authorities() {

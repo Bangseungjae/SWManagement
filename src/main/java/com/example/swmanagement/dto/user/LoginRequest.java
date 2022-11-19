@@ -1,4 +1,4 @@
-package com.example.swmanagement.dto;
+package com.example.swmanagement.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
