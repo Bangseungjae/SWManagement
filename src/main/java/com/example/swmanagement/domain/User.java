@@ -19,6 +19,7 @@ import java.util.List;
 public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @Column
@@ -38,5 +39,8 @@ public class User extends BaseEntity{
 
     @OneToMany
     private List<Chat> chats = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user")
+    private Invitation invitation;
 
 }

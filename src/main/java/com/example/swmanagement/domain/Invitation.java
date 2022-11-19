@@ -12,26 +12,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Project extends BaseEntity{
+public class Invitation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "invitation_id")
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private User user;
 
     @OneToMany
-    private List<Board> boards = new ArrayList<>();
-
-    @Column
-    private String name;
-
-    @Column
-    private String description;
-
-    @OneToMany
-    private List<Issue> issues = new ArrayList<>();
-
-    @ManyToOne
-    private Invitation invitation;
+    private List<Project> project = new ArrayList<>();
 }
