@@ -44,7 +44,7 @@ public class UserController {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        return ResponseEntity.ok().body("healthy2");
+        return ResponseEntity.ok().body("healthy3");
     }
 
     @GetMapping("/invitations")
