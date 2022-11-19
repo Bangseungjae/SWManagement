@@ -15,13 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -48,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.authorizeHttpRequests()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/signup").permitAll()
+                .antMatchers("/v2/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/index.html/**").permitAll()
+                .anyRequest().authenticated();
+
         http.csrf().disable()
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
@@ -62,59 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/v2/api-docs/**").permitAll()
-                .antMatchers("/swagger-ui/index.html/**").permitAll()
-
-                .anyRequest().authenticated()
-                .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
 
-//        http.authorizeHttpRequests()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/signup").permitAll()
-//                .antMatchers("/users").permitAll()
-//                .and()
-//                .apply(new JwtSecurityConfig(tokenProvider));
-//
-//        http.csrf().disable()
-//                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-//                .exceptionHandling()
-//                .authenticationEntryPoint(jwtAuthenticationEntryFilter)
-//                .accessDeniedHandler(jwtAccessDeniedHandler)
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-////                .and()
-////                .addFilterAfter(getFilterSecurityInterceptor(), FilterSecurityInterceptor.class);
     }
 
-//    @Bean
-//    public FilterSecurityInterceptor getFilterSecurityInterceptor() {
-//        FilterSecurityInterceptor interceptor = new FilterSecurityInterceptor();
-//        interceptor.setAccessDecisionManager(affirmativeBased());
-//        interceptor.setSecurityMetadataSource(getReloadableFilterInvocationSecurityMetadataSource());
-//        return interceptor;
-//    }
-//
-//    @Bean
-//    public FilterInvocationSecurityMetadataSource getReloadableFilterInvocationSecurityMetadataSource() {
-//        return new FilterInvocationMetaDataSource();
-//    }
-//
-//    private AccessDecisionManager affirmativeBased() {
-//        AffirmativeBased affirmativeBased = new AffirmativeBased(getAccessDecisionVoters());
-//        return affirmativeBased;
-//    }
-//
-//    @Bean
-//    public List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
-//        List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
-////        accessDecisionVoters.add(roleVoter());
-//        return accessDecisionVoters;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
