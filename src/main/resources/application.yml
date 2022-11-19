@@ -22,3 +22,11 @@ spring:
     active: dev
 logging.level:
   org.hibernate.SQL: debug
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    password: secret
+    property:
+      prefix: ENC(
+      suffix: )
