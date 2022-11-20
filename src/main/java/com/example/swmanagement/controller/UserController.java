@@ -47,12 +47,5 @@ public class UserController {
         return ResponseEntity.ok().body("healthy3");
     }
 
-    /**
-     * 유저의 초대 정보를 보여준다.
-     */
-    @GetMapping("/invitations")
-    public ResponseEntity<List<InvitationDto>> findMyInvitations(@RequestParam String email) {
-        List<InvitationDto> myInvitation = invitationService.findMyInvitation(email);
-        return ResponseEntity.ok().body(myInvitation);
-    }
+
 }
