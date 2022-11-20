@@ -7,6 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,5 +35,13 @@ public class InvitationController {
     public ResponseEntity<List<InvitationDto>> findMyInvitations(@RequestParam String email) {
         List<InvitationDto> myInvitation = invitationService.findMyInvitation(email);
         return ResponseEntity.ok().body(myInvitation);
+    }
+
+    @ApiOperation(value = "초대 수락하기")
+    @PostMapping("/invitation/accept/{id}")
+    public ResponseEntity acceptInvitation(@PathVariable("id") Long invitationId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        invitationService.accept(authentication.getName(), invitationId);
+        return ResponseEntity.ok().body(null);
     }
 }

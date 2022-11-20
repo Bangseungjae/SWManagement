@@ -7,6 +7,7 @@ import com.example.swmanagement.domain.repository.InvitationRepository;
 import com.example.swmanagement.domain.repository.ProjectRepository;
 import com.example.swmanagement.domain.repository.UserRepository;
 import com.example.swmanagement.dto.invitation.InvitationDto;
+import com.example.swmanagement.exception.MissMatchException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 
 @Slf4j
 @Service
@@ -57,5 +59,23 @@ public class InvitationService {
                 .build();
 
         invitationRepository.save(invitation);
+    }
+
+    public void accept(String email, Long invitationId) {
+        Invitation invitation = invitationRepository.findById(invitationId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id의 초대가 없습니다."));
+
+        User userByEmail = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 사용자가 없습니다."));
+        User user = invitation.getUser();
+
+        Project project = invitation.getProject();
+        project.getUser().add(user);
+
+        if (!user.getEmail().equals(userByEmail.getEmail())) {
+            throw new MissMatchException("사용자 이메일과 요청하신 초대와 일치하지 안습니다.", 400);
+        }
+        user.getProjects().add(project);
+        invitationRepository.delete(invitation);
     }
 }
