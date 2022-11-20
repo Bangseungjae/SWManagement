@@ -28,7 +28,7 @@ public class Project extends BaseTime {
     )
     private List<User> user = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 
     @Column

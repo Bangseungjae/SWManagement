@@ -8,12 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,5 +26,13 @@ public class BoardController {
         BoardResponseDto board = boardService.registerBoard(projectId, dto);
 
         return ResponseEntity.ok().body(board);
+    }
+
+
+    @ApiOperation(value = "스토리보드 전체 보기")
+    @GetMapping("/board/{id}")
+    public ResponseEntity<List<BoardResponseDto>> allBoard(@PathVariable("id") Long projectId) {
+        List<BoardResponseDto> boardResponseDtos = boardService.allBoard(projectId);
+        return ResponseEntity.ok().body(boardResponseDtos);
     }
 }

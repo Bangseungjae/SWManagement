@@ -1,14 +1,12 @@
 package com.example.swmanagement.dto.board;
 
 import com.example.swmanagement.domain.PriorityStatus;
-import lombok.AllArgsConstructor;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Size;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class BoardResponseDto {
     private Long id;
@@ -16,4 +14,13 @@ public class BoardResponseDto {
     private Integer score;
     private PriorityStatus priorityStatus;
     private String description;
+    
+    @QueryProjection
+    public BoardResponseDto(Long id, String name, Integer score, PriorityStatus priorityStatus, String description) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+        this.priorityStatus = priorityStatus;
+        this.description = description;
+    }
 }
