@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class InvitationController {
 
     @ApiOperation(value = "프로젝트에 사용자 초대하기")
     @PostMapping("/invite")
-    public ResponseEntity invite(@RequestBody InvitationRequestDto dto) {
+    public ResponseEntity invite(@RequestBody @Valid InvitationRequestDto dto) {
         invitationService.invite(dto.getProjectId(), dto.getEmail());
         return ResponseEntity.ok().body(null);
     }

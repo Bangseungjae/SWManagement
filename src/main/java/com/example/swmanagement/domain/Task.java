@@ -18,8 +18,6 @@ public class Task {
     @ManyToOne
     private User user;
 
-    @OneToOne
-    private Board board;
 
     @Column
     @Enumerated(EnumType.STRING)

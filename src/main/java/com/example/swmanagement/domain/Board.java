@@ -36,8 +36,4 @@ public class Board extends BaseTime {
 
     @Column
     private Boolean isStart;
-
-    @OneToOne
-    private Task task;
-
 }
