@@ -2,6 +2,7 @@ package com.example.swmanagement.service;
 
 import com.example.swmanagement.domain.Board;
 import com.example.swmanagement.domain.Task;
+import com.example.swmanagement.domain.TaskStatus;
 import com.example.swmanagement.domain.User;
 import com.example.swmanagement.domain.repository.BoardRepository;
 import com.example.swmanagement.domain.repository.TaskQueryDsl;
@@ -12,6 +13,8 @@ import com.example.swmanagement.dto.task.TaskResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +59,10 @@ public class TaskService {
 
     public void taskStatusChange(Long id, TaskRequestDto dto) {
         taskQueryDsl.changeStatus(dto.getTaskStatus(), id);
+    }
+
+    public List<TaskResponseDto> selectTasksByStatus(TaskStatus taskStatus, Long projectId) {
+        List<TaskResponseDto> taskResponseDtos = taskQueryDsl.selectTasks(taskStatus, projectId);
+        return taskResponseDtos;
     }
 }

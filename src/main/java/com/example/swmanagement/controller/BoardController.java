@@ -1,6 +1,5 @@
 package com.example.swmanagement.controller;
 
-import com.example.swmanagement.domain.Board;
 import com.example.swmanagement.dto.board.BoardRequestDto;
 import com.example.swmanagement.dto.board.BoardResponseDto;
 import com.example.swmanagement.service.BoardService;
@@ -29,13 +28,14 @@ public class BoardController {
     }
 
 
-    @ApiOperation(value = "스토리보드 전체 보기 id=project_id")
+    @ApiOperation(value = "스토리보드 전체 보기 id = project_id")
     @GetMapping("/board/{id}")
     public ResponseEntity<List<BoardResponseDto>> allBoard(@PathVariable("id") Long projectId) {
         List<BoardResponseDto> boardResponseDtos = boardService.allBoard(projectId);
         return ResponseEntity.ok().body(boardResponseDtos);
     }
 
+    @ApiOperation(value = "id = 삭제의 board의 id")
     @DeleteMapping("/board/{id}")
     public ResponseEntity deleteBoardById(@PathVariable("id") Long boardId) {
         boardService.deleteBoardById(boardId);

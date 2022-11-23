@@ -33,7 +33,7 @@ public class ProjectController {
         return ResponseEntity.ok().body(projectResponseDtos);
     }
 
-    @ApiOperation(value = "해당 유저가 해당 프로젝트 아이디의 프로젝트에서 탈퇴합니다. /project/{id}")
+    @ApiOperation(value = "해당 유저가 해당 프로젝트 아이디의 프로젝트에서 탈퇴합니다. id = project의 id")
     @DeleteMapping("/project/{id}")
     public ResponseEntity deleteProject(@PathVariable("id") Long projectId) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -18,7 +18,7 @@ public class BoardRequestDto {
 
     @Min(1)
     @Max(5)
-    private Integer score;
+    private Long score;
     private PriorityStatus priorityStatus;
     private String description;
 }

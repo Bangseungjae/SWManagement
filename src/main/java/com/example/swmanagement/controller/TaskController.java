@@ -13,11 +13,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Api(value = "Task API입니다.")
+@Api(tags = "Task API입니다.")
 public class TaskController {
     private final TaskService taskService;
 
-    @ApiOperation(value = "Task생성 api status = TODO, IN_PROGRESS, RESOLVED")
+    @ApiOperation(value = "id = board의 id   Task생성 api status = TODO, IN_PROGRESS, RESOLVED")
     @PostMapping("/task/{id}")
     public ResponseEntity<TaskResponseDto> createTask(@RequestBody TaskRequestDto dto, @PathVariable("id") Long boardId) {
         TaskResponseDto taskResponseDto = taskService.createTask(boardId, dto);
@@ -35,5 +35,7 @@ public class TaskController {
     @GetMapping("/task/{id}")
     public ResponseEntity<List<TaskResponseDto>> tasks(@RequestBody TaskRequestDto dto, @PathVariable("id") Long id) {
 
+        List<TaskResponseDto> taskResponseDtos = taskService.selectTasksByStatus(dto.getTaskStatus(), id);
+        return ResponseEntity.ok().body(taskResponseDtos);
     }
 }
