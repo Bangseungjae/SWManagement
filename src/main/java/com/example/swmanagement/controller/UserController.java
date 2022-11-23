@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "로그인")
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<ResponseLogin> login(@Valid @RequestBody LoginRequest loginRequest) {
         ResponseLogin authenticate = authService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         return ResponseEntity.ok().body(authenticate);
