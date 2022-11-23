@@ -34,7 +34,8 @@ public class Task {
     @Column
     private String description;
 
-    @Column
     @ManyToOne
+//    @Column(name = "project_FK")
+    @JoinColumn(name = "project_FK")
     private Project project;
 }
