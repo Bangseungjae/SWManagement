@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 public class BoardResponseDto {
     private Long id;
     private String name;
-    private Integer score;
+    private Long score;
     private PriorityStatus priorityStatus;
     private String description;
     
     @QueryProjection
-    public BoardResponseDto(Long id, String name, Integer score, PriorityStatus priorityStatus, String description) {
+    public BoardResponseDto(Long id, String name, Long score, PriorityStatus priorityStatus, String description) {
         this.id = id;
         this.name = name;
         this.score = score;

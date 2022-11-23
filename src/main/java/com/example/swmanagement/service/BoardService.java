@@ -45,22 +45,11 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardResponseDto> allBoard(Long projectId) {
-//        Project project = projectRepository.findById(projectId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 id의 프로젝트가 없습니다."));
-//        List<Board> boards = project.getBoards();
-//        log.info("boards : {}", boards);
-//        List<BoardResponseDto> dtos = new ArrayList<>();
-//
-//        for (Board board : boards) {
-//            dtos.add(new BoardResponseDto(
-//                    board.getId(),
-//                    board.getName(),
-//                    board.getScore(),
-//                    board.getStatus(),
-//                    board.getDescription())
-//            );
-//        }
         List<BoardResponseDto> dtos = boardQueryDsl.findAllBoards(projectId);
         return dtos;
+    }
+
+    public void deleteBoardById(Long boardId) {
+        boardRepository.deleteById(boardId);
     }
 }

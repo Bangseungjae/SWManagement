@@ -7,10 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +31,13 @@ public class ProjectController {
     public ResponseEntity<List<ProjectResponseDto>> findProjects(String email) {
         List<ProjectResponseDto> projectResponseDtos = projectService.findProjects(email);
         return ResponseEntity.ok().body(projectResponseDtos);
+    }
+
+    @ApiOperation(value = "해당 유저가 해당 프로젝트 아이디의 프로젝트에서 탈퇴합니다. /project/{id}")
+    @DeleteMapping("/project/{id}")
+    public ResponseEntity deleteProject(@PathVariable("id") Long projectId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        projectService.deleteProject(email, projectId);
+        return ResponseEntity.ok().body(null);
     }
 }

@@ -91,4 +91,16 @@ public class ProjectService {
         return projectResponseDtos;
 
     }
+
+    public void deleteProject(String email, Long projectId) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 email의 사용자가 없습니다."));
+
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id의 프로젝트가 없습니다."));
+
+
+        user.getProjects().remove(project);
+        project.getUser().remove(user);
+    }
 }

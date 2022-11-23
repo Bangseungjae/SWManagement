@@ -2,6 +2,7 @@ package com.example.swmanagement.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +24,17 @@ public class Task {
     @Column
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
+
+    @Column
+    private String taskName;
+
+    @Column
+    private Long score;
+
+    @Column
+    private String description;
+
+    @Column
+    @ManyToOne
+    private Project project;
 }

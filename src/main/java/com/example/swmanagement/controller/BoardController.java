@@ -29,10 +29,16 @@ public class BoardController {
     }
 
 
-    @ApiOperation(value = "스토리보드 전체 보기")
+    @ApiOperation(value = "스토리보드 전체 보기 id=project_id")
     @GetMapping("/board/{id}")
     public ResponseEntity<List<BoardResponseDto>> allBoard(@PathVariable("id") Long projectId) {
         List<BoardResponseDto> boardResponseDtos = boardService.allBoard(projectId);
         return ResponseEntity.ok().body(boardResponseDtos);
+    }
+
+    @DeleteMapping("/board/{id}")
+    public ResponseEntity deleteBoardById(@PathVariable("id") Long boardId) {
+        boardService.deleteBoardById(boardId);
+        return ResponseEntity.ok().body(null);
     }
 }

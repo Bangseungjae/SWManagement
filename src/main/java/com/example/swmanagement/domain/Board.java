@@ -32,8 +32,6 @@ public class Board extends BaseTime {
     private String description;
 
     @Column
-    private Integer score;
+    private Long score;
 
-    @Column
-    private Boolean isStart;
 }

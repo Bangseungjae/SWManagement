@@ -1,9 +1,7 @@
 package com.example.swmanagement.domain.repository;
 
-import com.example.swmanagement.domain.QBoard;
 import com.example.swmanagement.dto.board.BoardResponseDto;
 import com.example.swmanagement.dto.board.QBoardResponseDto;
-import com.querydsl.core.types.Expression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,7 +17,8 @@ public class BoardQueryDsl {
     private final JPAQueryFactory queryFactory;
 
     public List<BoardResponseDto> findAllBoards(Long projectId) {
-        List<BoardResponseDto> dtos = queryFactory.select(new QBoardResponseDto(board.id, board.name, board.score, board.status, board.description))
+        List<BoardResponseDto> dtos = queryFactory
+                .select(new QBoardResponseDto(board.id, board.name, board.score, board.status, board.description))
                 .from(board)
                 .where(board.project.id.eq(projectId))
                 .fetch();

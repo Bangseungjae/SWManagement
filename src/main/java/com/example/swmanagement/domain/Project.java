@@ -40,4 +40,8 @@ public class Project extends BaseTime {
     @Builder.Default
     @OneToMany
     private List<Issue> issues = new ArrayList<>();
+
+    @OneToMany
+    @Column
+    private List<Task> tasks = new ArrayList<>();
 }
