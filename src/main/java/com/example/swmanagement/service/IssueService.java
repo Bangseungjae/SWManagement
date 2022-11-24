@@ -12,6 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class IssueService {
@@ -42,5 +45,26 @@ public class IssueService {
 
         IssueResponseDto issueResponseDto = new IssueResponseDto(savedIssue.getId(), savedIssue.getContent(), savedIssue.getUser().getUsername());
         return issueResponseDto;
+    }
+
+    public List<IssueResponseDto> getIssues(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Id의 프로젝트가 없습니다."));
+        List<Issue> issues = project.getIssues();
+
+
+        List<IssueResponseDto> dtos = new ArrayList<>();
+        for (Issue issue : issues) {
+            dtos.add(new IssueResponseDto(issue.getId(), issue.getContent(), issue.getContent()));
+        }
+
+        return dtos;
+    }
+
+    public void deleteIssue(Long issueId) {
+        Issue issue = issueRepository.findById(issueId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id의 issue가 없었습니다."));
+
+        issueRepository.delete(issue);
     }
 }
