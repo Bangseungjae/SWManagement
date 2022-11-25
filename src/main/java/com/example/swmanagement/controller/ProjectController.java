@@ -28,7 +28,7 @@ public class ProjectController {
 
     @ApiOperation(value = "해당 email의 프로제트들 정보 요청")
     @GetMapping("/projects")
-    public ResponseEntity<List<ProjectResponseDto>> findProjects(String email) {
+    public ResponseEntity<List<ProjectResponseDto>> findProjects(@RequestParam String email) {
         List<ProjectResponseDto> projectResponseDtos = projectService.findProjects(email);
         return ResponseEntity.ok().body(projectResponseDtos);
     }
