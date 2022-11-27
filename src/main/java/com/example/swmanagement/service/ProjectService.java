@@ -112,6 +112,9 @@ public class ProjectService {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime localDateTime = now.plusDays(score);
+        log.info("year = {}", localDateTime.getYear());
+        log.info("month = {}", localDateTime.getMonth().getValue());
+        log.info("day = {}", localDateTime.getDayOfMonth());
 
         return new ExpectFinalDate(localDateTime.getYear(), localDateTime.getMonth().getValue(), localDateTime.getDayOfMonth());
     }

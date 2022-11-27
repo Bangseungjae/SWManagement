@@ -4,12 +4,14 @@ import com.example.swmanagement.dto.board.BoardResponseDto;
 import com.example.swmanagement.dto.board.QBoardResponseDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static com.example.swmanagement.domain.QBoard.*;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class BoardQueryDsl {
@@ -30,6 +32,9 @@ public class BoardQueryDsl {
                 .from(board)
                 .where(board.project.id.eq(projectId))
                 .fetchOne();
+        if (sum == null) {
+            sum = 0L;
+        }
         return sum;
     }
 }

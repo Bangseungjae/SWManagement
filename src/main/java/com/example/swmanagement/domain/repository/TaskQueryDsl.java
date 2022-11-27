@@ -5,6 +5,7 @@ import com.example.swmanagement.dto.task.QTaskResponseDto;
 import com.example.swmanagement.dto.task.TaskResponseDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import static com.example.swmanagement.domain.QTask.*;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class TaskQueryDsl {
 
     private final JPAQueryFactory queryFactory;
@@ -34,10 +36,16 @@ public class TaskQueryDsl {
     }
 
     public Long findScoreSumByProjectId(Long projectId) {
-        return queryFactory.select(task.score.sum())
+        Long sum = queryFactory.select(task.score.sum())
                 .from(task)
                 .where(task.project.id.eq(projectId))
                 .fetchOne();
+
+//        log.info("task sum : {}", sum);
+        if (sum == null) {
+            sum = 0L;
+        }
+        return sum;
     }
 
 }
