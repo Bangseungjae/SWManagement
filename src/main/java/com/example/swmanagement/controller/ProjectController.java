@@ -1,5 +1,6 @@
 package com.example.swmanagement.controller;
 
+import com.example.swmanagement.dto.project.ExpectFinalDate;
 import com.example.swmanagement.dto.project.ProjectRequestDto;
 import com.example.swmanagement.dto.project.ProjectResponseDto;
 import com.example.swmanagement.service.ProjectService;
@@ -39,5 +40,12 @@ public class ProjectController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         projectService.deleteProject(email, projectId);
         return ResponseEntity.ok().body(null);
+    }
+
+    @ApiOperation(value = "해당 프로젝트가 끝나는 예상 날짜를 계산합니다. id = project id")
+    @GetMapping("/project/score/{id}")
+    public ResponseEntity<ExpectFinalDate> findFinalDate(@PathVariable("id") Long projectId) {
+        ExpectFinalDate finalDate = projectService.findFinalDate(projectId);
+        return ResponseEntity.ok().body(finalDate);
     }
 }

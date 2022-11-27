@@ -33,4 +33,11 @@ public class TaskQueryDsl {
         return dtos;
     }
 
+    public Long findScoreSumByProjectId(Long projectId) {
+        return queryFactory.select(task.score.sum())
+                .from(task)
+                .where(task.project.id.eq(projectId))
+                .fetchOne();
+    }
+
 }

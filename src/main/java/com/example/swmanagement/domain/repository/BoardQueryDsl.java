@@ -24,4 +24,12 @@ public class BoardQueryDsl {
                 .fetch();
         return dtos;
     }
+
+    public Long sumScoreByProjectId(Long projectId) {
+        Long sum = queryFactory.select(board.score.sum())
+                .from(board)
+                .where(board.project.id.eq(projectId))
+                .fetchOne();
+        return sum;
+    }
 }

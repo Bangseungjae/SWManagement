@@ -3,9 +3,8 @@ package com.example.swmanagement.service;
 import com.example.swmanagement.domain.Invitation;
 import com.example.swmanagement.domain.Project;
 import com.example.swmanagement.domain.User;
-import com.example.swmanagement.domain.repository.InvitationRepository;
-import com.example.swmanagement.domain.repository.ProjectRepository;
-import com.example.swmanagement.domain.repository.UserRepository;
+import com.example.swmanagement.domain.repository.*;
+import com.example.swmanagement.dto.project.ExpectFinalDate;
 import com.example.swmanagement.dto.project.ProjectRequestDto;
 import com.example.swmanagement.dto.project.ProjectResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +27,9 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
-
     private final InvitationRepository invitationRepository;
+    private final TaskQueryDsl taskQueryDsl;
+    private final BoardQueryDsl boardQueryDsl;
 
     public void registerProject(ProjectRequestDto projectRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -102,5 +103,16 @@ public class ProjectService {
 
         user.getProjects().remove(project);
         project.getUser().remove(user);
+    }
+
+    public ExpectFinalDate findFinalDate(Long projectId) {
+        Long score1 = taskQueryDsl.findScoreSumByProjectId(projectId);
+        Long score2 = boardQueryDsl.sumScoreByProjectId(projectId);
+        Long score = score1 + score2;
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime localDateTime = now.plusDays(score);
+
+        return new ExpectFinalDate(localDateTime.getYear(), localDateTime.getMonth().getValue(), localDateTime.getDayOfMonth());
     }
 }
