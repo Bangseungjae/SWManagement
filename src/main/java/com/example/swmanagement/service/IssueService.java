@@ -3,6 +3,7 @@ package com.example.swmanagement.service;
 import com.example.swmanagement.domain.Issue;
 import com.example.swmanagement.domain.Project;
 import com.example.swmanagement.domain.User;
+import com.example.swmanagement.domain.repository.IssueQueryDsl;
 import com.example.swmanagement.domain.repository.IssueRepository;
 import com.example.swmanagement.domain.repository.ProjectRepository;
 import com.example.swmanagement.domain.repository.UserRepository;
@@ -11,17 +12,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class IssueService {
 
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
+    private final IssueQueryDsl issueQueryDsl;
 
     public IssueResponseDto createIssue(Long projectId, String content) {
         Project project = projectRepository.findById(projectId)
@@ -47,18 +51,19 @@ public class IssueService {
         return issueResponseDto;
     }
 
+    @Transactional(readOnly = true)
     public List<IssueResponseDto> getIssues(Long projectId) {
-        Project project = projectRepository.findById(projectId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 Id의 프로젝트가 없습니다."));
-        List<Issue> issues = project.getIssues();
+//        Project project = projectRepository.findById(projectId)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 Id의 프로젝트가 없습니다."));
+//        List<Issue> issues = project.getIssues();
+//
+//
+//        List<IssueResponseDto> dtos = new ArrayList<>();
+//        for (Issue issue : issues) {
+//            dtos.add(new IssueResponseDto(issue.getId(), issue.getContent(), issue.getContent()));
+//        }
 
-
-        List<IssueResponseDto> dtos = new ArrayList<>();
-        for (Issue issue : issues) {
-            dtos.add(new IssueResponseDto(issue.getId(), issue.getContent(), issue.getContent()));
-        }
-
-        return dtos;
+        return issueQueryDsl.getIssueByProjectId(projectId);
     }
 
     public void deleteIssue(Long issueId) {

@@ -38,10 +38,10 @@ public class Project extends BaseTime {
     private String description;
 
     @Builder.Default
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Issue> issues = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @Column
     private List<Task> tasks = new ArrayList<>();
 }
