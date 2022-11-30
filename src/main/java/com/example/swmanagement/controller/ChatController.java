@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Api(value = "CHAT API입니다.")
+@Api(tags = "CHAT API입니다.")
 public class ChatController {
 
     private final ChatService chatService;
