@@ -3,6 +3,7 @@ package com.example.swmanagement.controller;
 import com.example.swmanagement.dto.chat.ChatRequestDto;
 import com.example.swmanagement.dto.chat.ChatResponseDto;
 import com.example.swmanagement.service.ChatService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Api(value = "CHAT API입니다.")
 public class ChatController {
 
     private final ChatService chatService;
