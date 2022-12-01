@@ -1,5 +1,6 @@
 package com.example.swmanagement.controller;
 
+import com.example.swmanagement.domain.TaskStatus;
 import com.example.swmanagement.dto.task.TaskRequestDto;
 import com.example.swmanagement.dto.task.TaskResponseDto;
 import com.example.swmanagement.service.TaskService;
@@ -33,9 +34,9 @@ public class TaskController {
 
     @ApiOperation(value = "task상태별로 보기, id = Project id")
     @GetMapping("/task/{id}")
-    public ResponseEntity<List<TaskResponseDto>> tasks(@RequestBody TaskRequestDto dto, @PathVariable("id") Long id) {
+    public ResponseEntity<List<TaskResponseDto>> tasks(@RequestParam TaskStatus status, @PathVariable("id") Long id) {
 
-        List<TaskResponseDto> taskResponseDtos = taskService.selectTasksByStatus(dto.getTaskStatus(), id);
+        List<TaskResponseDto> taskResponseDtos = taskService.selectTasksByStatus(status, id);
         return ResponseEntity.ok().body(taskResponseDtos);
     }
 }
