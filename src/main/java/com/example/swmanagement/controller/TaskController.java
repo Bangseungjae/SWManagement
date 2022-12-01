@@ -32,7 +32,7 @@ public class TaskController {
         return ResponseEntity.ok().body(null);
     }
 
-    @ApiOperation(value = "task상태별로 보기, id = Project id")
+    @ApiOperation(value = "task상태별로 보기, id = Project id status = TODO, IN_PROGRESS, RESOLVED")
     @GetMapping("/task/{id}")
     public ResponseEntity<List<TaskResponseDto>> tasks(@RequestParam TaskStatus status, @PathVariable("id") Long id) {
 
