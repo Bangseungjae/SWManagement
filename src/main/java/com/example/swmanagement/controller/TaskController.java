@@ -40,6 +40,7 @@ public class TaskController {
         return ResponseEntity.ok().body(taskResponseDtos);
     }
 
+    @ApiOperation(value = "유저와 프로젝트 id로 task조회")
     @GetMapping("/task/{projectId}/{userId}")
     public ResponseEntity<List<TaskResponseDto>> findByProjectAndUserId(
             @PathVariable("projectId") Long projectId,
