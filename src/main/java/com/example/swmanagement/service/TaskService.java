@@ -62,7 +62,14 @@ public class TaskService {
     }
 
     public List<TaskResponseDto> selectTasksByStatus(TaskStatus taskStatus, Long projectId) {
-        List<TaskResponseDto> taskResponseDtos = taskQueryDsl.selectTasks(taskStatus, projectId);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+        List<TaskResponseDto> taskResponseDtos = taskQueryDsl.selectTasks(taskStatus, projectId, user.getId());
         return taskResponseDtos;
+    }
+
+    public List<TaskResponseDto> selectTaskByUserAndProjectAndStatus(Long projectId, Long userId, TaskStatus status) {
+        return taskQueryDsl.selectTasks(status, projectId, userId);
     }
 }

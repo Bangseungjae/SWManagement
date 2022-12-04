@@ -27,16 +27,26 @@ public class TaskController {
 
     @ApiOperation(value = "Task의 진행 상태 변경, id = task의 id")
     @PutMapping("/task/{id}")
-    public ResponseEntity chageTaskStatus(@PathVariable("id") Long id, TaskRequestDto dto) {
+    public ResponseEntity chageTaskStatus(@PathVariable("id") Long id, @RequestParam TaskRequestDto dto) {
         taskService.taskStatusChange(id, dto);
         return ResponseEntity.ok().body(null);
     }
 
-    @ApiOperation(value = "task상태별로 보기, id = Project id status = TODO, IN_PROGRESS, RESOLVED")
+    @ApiOperation(value = "로그인한 유저의 task상태별로 보기, id = Project id status = TODO, IN_PROGRESS, RESOLVED")
     @GetMapping("/task/{id}")
     public ResponseEntity<List<TaskResponseDto>> tasks(@RequestParam TaskStatus status, @PathVariable("id") Long id) {
 
         List<TaskResponseDto> taskResponseDtos = taskService.selectTasksByStatus(status, id);
+        return ResponseEntity.ok().body(taskResponseDtos);
+    }
+
+    @GetMapping("/task/{projectId}/{userId}")
+    public ResponseEntity<List<TaskResponseDto>> findByProjectAndUserId(
+            @PathVariable("projectId") Long projectId,
+            @PathVariable("userId") Long userId,
+            @RequestParam TaskStatus status
+    ) {
+        List<TaskResponseDto> taskResponseDtos = taskService.selectTaskByUserAndProjectAndStatus(projectId, userId, status);
         return ResponseEntity.ok().body(taskResponseDtos);
     }
 }

@@ -49,7 +49,7 @@ public class UserController {
     }
 
 
-    @ApiOperation(value = "해당 프로젝트에 참여하는 유저입니다. projectId = project의 아이디")
+    @ApiOperation(value = "해당 프로젝트에 참여하는 유저입니다. projectId = project의 아이가")
     @GetMapping("/users/{projectId}")
     public ResponseEntity<List<UserByProjectDto>> findByProjectId(@PathVariable("projectId") Long projectId) {
         List<UserByProjectDto> userByProject = userService.findByProjectId(projectId);

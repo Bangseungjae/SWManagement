@@ -26,11 +26,11 @@ public class TaskQueryDsl {
                 .execute();
     }
 
-    public List<TaskResponseDto> selectTasks(TaskStatus taskStatus, Long projectid) {
+    public List<TaskResponseDto> selectTasks(TaskStatus taskStatus, Long projectid, Long userId) {
         List<TaskResponseDto> dtos =
                 queryFactory.select(new QTaskResponseDto(task.id, task.taskName, task.score, task.description, task.taskStatus))
                 .from(task)
-                .where(task.taskStatus.eq(taskStatus).and(task.project.id.eq(projectid)))
+                .where(task.taskStatus.eq(taskStatus).and(task.project.id.eq(projectid)).and(task.user.id.eq(userId)))
                 .fetch();
         return dtos;
     }
