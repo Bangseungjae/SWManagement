@@ -1,6 +1,7 @@
 package com.example.swmanagement.security.config;
 
 import com.example.swmanagement.security.TokenProvider;
+import com.example.swmanagement.security.filter.JwtAuthenticationEntryFilter;
 import com.example.swmanagement.security.handler.JwtAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

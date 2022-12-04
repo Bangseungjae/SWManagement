@@ -1,4 +1,4 @@
-package com.example.swmanagement.security.filter;
+package com.example.swmanagement.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

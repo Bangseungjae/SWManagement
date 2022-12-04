@@ -1,4 +1,4 @@
-package com.example.swmanagement.security.config;
+package com.example.swmanagement.security.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
