@@ -3,6 +3,7 @@ package com.example.swmanagement.controller;
 import com.example.swmanagement.dto.invitation.InvitationDto;
 import com.example.swmanagement.dto.user.LoginRequest;
 import com.example.swmanagement.dto.user.ResponseLogin;
+import com.example.swmanagement.dto.user.UserByProjectDto;
 import com.example.swmanagement.security.service.AuthService;
 import com.example.swmanagement.service.InvitationService;
 import com.example.swmanagement.service.UserService;
@@ -48,4 +49,10 @@ public class UserController {
     }
 
 
+    @ApiOperation(value = "해당 프로젝트에 참여하는 유저입니다. projectId = project의 아이디")
+    @GetMapping("/users/{projectId}")
+    public ResponseEntity<List<UserByProjectDto>> findByProjectId(@PathVariable("projectId") Long projectId) {
+        List<UserByProjectDto> userByProject = userService.findByProjectId(projectId);
+        return ResponseEntity.ok().body(userByProject);
+    }
 }
