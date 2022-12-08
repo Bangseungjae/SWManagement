@@ -27,7 +27,7 @@ public class TaskController {
 
     @ApiOperation(value = "Task의 진행 상태 변경, id = task의 id")
     @PutMapping("/task/{id}")
-    public ResponseEntity chageTaskStatus(@PathVariable("id") Long id, @RequestBody TaskRequestDto dto) {
+    public ResponseEntity chageTaskStatus(@PathVariable("id") Long id, @RequestParam TaskRequestDto dto) {
         taskService.taskStatusChange(id, dto);
         return ResponseEntity.ok().body(null);
     }
