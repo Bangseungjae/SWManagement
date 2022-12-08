@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -60,6 +61,7 @@ public class ChatService {
         for (Chat chat : chats) {
             dtos.add(new ChatResponseDto(chat.getId(), chat.getContent()));
         }
+        dtos.sort((it1, it2) -> (int) (it1.getId() - it2.getId()));
         return dtos;
     }
 }
