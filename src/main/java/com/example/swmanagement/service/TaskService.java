@@ -57,8 +57,8 @@ public class TaskService {
         return taskResponseDto;
     }
 
-    public void taskStatusChange(Long id, TaskRequestDto dto) {
-        taskQueryDsl.changeStatus(dto.getTaskStatus(), id);
+    public void taskStatusChange(Long id, TaskStatus status) {
+        taskQueryDsl.changeStatus(status, id);
     }
 
     public List<TaskResponseDto> selectTasksByStatus(TaskStatus taskStatus, Long projectId) {
