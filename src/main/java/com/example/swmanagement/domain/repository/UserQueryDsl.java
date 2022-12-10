@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.swmanagement.domain.QProject.project;
-import static com.example.swmanagement.domain.QUser.user;
 
 @Repository
 @RequiredArgsConstructor

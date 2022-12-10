@@ -45,4 +45,11 @@ public class InvitationController {
         invitationService.accept(authentication.getName(), invitationId);
         return ResponseEntity.ok().body(null);
     }
+
+    @ApiOperation(value = "초대 거절하기")
+    @DeleteMapping("/invitation/{invitationId}")
+    public ResponseEntity deleteInvitation(@PathVariable("invitationId") Long invitationId) {
+        invitationService.deleteInvitation(invitationId);
+        return ResponseEntity.ok().body(null);
+    }
 }

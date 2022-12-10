@@ -78,4 +78,10 @@ public class InvitationService {
         user.getProjects().add(project);
         invitationRepository.delete(invitation);
     }
+
+    public void deleteInvitation(Long invitationId) {
+        Invitation invitation = invitationRepository.findById(invitationId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id의 초대가 존재하지 않습니다."));
+        invitationRepository.delete(invitation);
+    }
 }
